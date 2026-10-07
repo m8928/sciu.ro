@@ -1,53 +1,169 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0A0D10" />
-  <title>Sciuro</title>
+  <meta name="theme-color" content="#0a0d10" />
+  <meta name="description" content="Sciuro is a self-hosted, Rust-native platform for log ingestion, SPL-style search, scheduled searches, and alerts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sciuro | Log search and operations" />
+  <meta property="og:description" content="Self-hosted log ingestion, SPL-style search, scheduled searches, and alerts." />
+  <meta property="og:url" content="https://sciu.ro/" />
+  <link rel="canonical" href="https://sciu.ro/" />
+  <title>Sciuro | Log search and operations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500&amp;display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Organization","name":"Sciuro","url":"https://sciu.ro/","email":"sciuro@sciu.ro","foundingDate":"2026-02","foundingLocation":{"@type":"Country","name":"South Korea"}}
+  </script>
   <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
+    :root {
+      color-scheme: dark;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
       background: #0a0d10;
+      color: #eef2f3;
+      font-synthesis: none;
     }
 
-    body {
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; }
+    a:focus-visible { outline: 2px solid #5ee0d5; outline-offset: 5px; }
+
+    .page {
+      width: min(100% - 48px, 960px);
+      min-height: 100vh;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
+    }
+
+    header {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 22px;
-      overflow: hidden;
-      font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 45px 0;
     }
 
-    img {
-      width: min(180px, 46vw);
-      height: auto;
-      display: block;
-    }
+    .wordmark { display: block; width: 160px; height: auto; }
+    .tagline, .eyebrow { color: #a6b1b9; font-size: 13px; letter-spacing: .08em; }
+    .tagline { margin: 0; }
+    main { flex: 1; padding: 82px 0 96px; }
+    .eyebrow { margin: 0 0 21px; color: #5ee0d5; font-weight: 600; text-transform: uppercase; }
 
-    p {
+    h1 {
+      max-width: 840px;
       margin: 0;
-      color: #838c95;
+      font-size: clamp(42px, 7vw, 76px);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: 1.08;
+    }
+
+    h1 span { color: #a6b1b9; }
+
+    .intro {
+      max-width: 670px;
+      margin: 29px 0 0;
+      color: #c4cdd2;
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.65;
+    }
+
+    .section-title {
+      margin: 0 0 26px;
       font-size: 14px;
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: 0;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .capabilities { margin-top: 108px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+    .grid article { border-top: 1px solid #364149; padding-top: 20px; }
+    .grid h3 { margin: 0 0 10px; font-size: 21px; font-weight: 500; }
+    .grid p, .planned p { margin: 0; color: #a6b1b9; line-height: 1.6; }
+
+    .planned {
+      margin-top: 76px;
+      padding: 29px 32px 32px;
+      border: 1px solid #284b49;
+      border-radius: 12px;
+      background: #101c1e;
+    }
+
+    .planned .eyebrow { margin-bottom: 12px; }
+    .planned h2 { margin: 0 0 12px; font-size: 24px; font-weight: 500; }
+    .planned p { max-width: 750px; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid #253038;
+      padding: 26px 0 38px;
+      color: #a6b1b9;
+      font-size: 14px;
+    }
+
+    footer p { margin: 0; }
+    footer a { color: #eef2f3; text-underline-offset: 4px; }
+
+    @media (max-width: 640px) {
+      .page { width: min(100% - 36px, 960px); }
+      header { align-items: flex-start; flex-direction: column; gap: 12px; padding: 32px 0; }
+      main { padding: 42px 0 72px; }
+      .capabilities { margin-top: 76px; }
+      .grid { grid-template-columns: 1fr; gap: 28px; }
+      .planned { padding: 24px; margin-top: 60px; }
+      footer { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <img src="sciuro-wordmark-dark.svg" alt="Sciuro" />
-  <p>Grounded operations.</p>
+  <div class="page">
+    <header>
+      <a href="/" aria-label="Sciuro home"><img class="wordmark" src="sciuro-wordmark-dark.svg" alt="Sciuro" /></a>
+      <p class="tagline">Grounded operations.</p>
+    </header>
+
+    <main>
+      <p class="eyebrow">Log ingestion · search · operations</p>
+      <h1>Understand your logs.<br /><span>Keep control of your stack.</span></h1>
+      <p class="intro">Sciuro is a self-hosted, Rust-native log platform for teams that need familiar search and alerting workflows with direct control over their infrastructure.</p>
+
+      <section class="capabilities" aria-labelledby="capabilities-title">
+        <h2 id="capabilities-title" class="section-title">What Sciuro does</h2>
+        <div class="grid">
+          <article>
+            <h3>Collect</h3>
+            <p>Bring in logs through HEC-compatible HTTP, syslog, file, and Sciuro TCP inputs.</p>
+          </article>
+          <article>
+            <h3>Search</h3>
+            <p>Investigate events with SPL-style queries and a browser-based search interface.</p>
+          </article>
+          <article>
+            <h3>Act</h3>
+            <p>Run scheduled searches, configure alerts, and follow operational activity.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="planned" aria-labelledby="planned-title">
+        <p class="eyebrow">In development</p>
+        <h2 id="planned-title">Claude-assisted investigations</h2>
+        <p>We are designing an assistant that proposes reviewable searches for incident questions and explains results with links to the underlying log events. The existing log engine provides the search and evidence layer; Claude integration is planned.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Sciuro · Founded February 2026 · South Korea</p>
+      <a href="mailto:sciuro@sciu.ro">sciuro@sciu.ro</a>
+    </footer>
+  </div>
 </body>
 </html>
