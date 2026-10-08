@@ -219,11 +219,25 @@
     .note strong { color: var(--text); font-weight: 500; }
     .cta { padding: 112px 0 120px; }
     .cta h2 { margin: 16px 0; }
+    .contact {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px;
+      margin-top: 40px; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .contact-label { color: var(--muted); font-size: 13px; }
+    .contact-address {
+      color: var(--heading); font-size: clamp(22px, 2.4vw, 28px); font-weight: 500; letter-spacing: -.015em;
+      overflow-wrap: anywhere; -webkit-user-select: all; user-select: all;
+    }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    button.button { border: 0; font-family: inherit; cursor: pointer; }
+    button.button-quiet { border: 1px solid var(--border-strong); background: transparent; }
+    .copy-status { min-height: 1.6em; margin-top: 12px; color: var(--teal-text); font-size: 14px; }
 
     footer { border-top: 1px solid var(--surface); background: var(--nav); }
     footer .container { min-height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 24px; }
     footer p { color: var(--muted); font-size: 14px; }
-    footer a { color: var(--text); font-size: 14px; text-underline-offset: 4px; }
+    footer a { color: var(--text); font-size: 14px; text-decoration-color: var(--border-strong); text-underline-offset: 4px; }
+    footer a:hover { text-decoration-color: var(--text); }
     .footer-brand { display: flex; align-items: center; gap: 12px; }
     .footer-brand img { width: 24px; height: 24px; }
 
@@ -248,6 +262,8 @@
       .panel-copy { display: block; }
       .admin-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .admin, .deploy li, .note { grid-template-columns: 1fr; gap: 6px; }
+      .contact-actions { width: 100%; }
+      .contact-actions .button { flex: 1 1 0; }
       .admin { gap: 16px; }
       .phones { gap: 12px; }
       .phone { border-radius: 16px; }
@@ -268,7 +284,7 @@
         <a href="#operations">Jobs &amp; alerts</a>
         <a href="#data">Data</a>
         <a href="#interface">Interface</a>
-        <a class="button button-primary" href="mailto:sciuro@sciuro.co">Contact</a>
+        <a class="button button-primary" href="#contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -280,7 +296,7 @@
       <p class="lede">Sciuro collects and indexes machine data, lets your team investigate it with SPL-style search, and turns saved searches into scheduled alerts — on servers you control.</p>
       <div class="actions">
         <a class="button button-primary" href="#search">Explore the product</a>
-        <a class="button button-quiet" href="mailto:sciuro@sciuro.co">Contact Sciuro</a>
+        <a class="button button-quiet" href="#contact">Contact Sciuro</a>
       </div>
 
       <figure class="preview">
@@ -472,13 +488,23 @@
       <p class="note"><strong>About these screens</strong><span>The images on this page show the next Sciuro interface, currently in development, rendered with sample data. They are not live search results.</span></p>
     </div>
 
-    <section class="cta container" aria-labelledby="cta-title">
+    <section id="contact" class="cta container" aria-labelledby="cta-title">
       <p class="eyebrow">Get in touch</p>
       <h2 id="cta-title">See Sciuro on your own data.</h2>
       <p class="lede">Tell us about your log sources and how your team searches today.</p>
-      <div class="actions">
-        <a class="button button-primary" href="mailto:sciuro@sciuro.co">sciuro@sciuro.co</a>
+      <!--email_off-->
+      <div class="contact">
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-address">sciuro@sciuro.co</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:sciuro@sciuro.co">Write to us</a>
+          <button type="button" class="button button-quiet" data-copy="sciuro@sciuro.co" hidden>Copy address</button>
+        </div>
       </div>
+      <!--/email_off-->
+      <p class="copy-status" role="status" aria-live="polite"></p>
     </section>
   </main>
 
@@ -488,7 +514,7 @@
         <img src="assets/sciuro-logo-dark.svg" width="24" height="24" alt="" />
         <p>© 2026 Sciuro · South Korea</p>
       </div>
-      <a href="mailto:sciuro@sciuro.co">sciuro@sciuro.co</a>
+      <!--email_off--><a href="mailto:sciuro@sciuro.co">sciuro@sciuro.co</a><!--/email_off-->
     </div>
   </footer>
 
@@ -502,6 +528,20 @@
         choices.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
       };
       choices.forEach((button) => button.addEventListener('click', () => applyTheme(button.dataset.themeChoice)));
+
+      const copyButton = document.querySelector('[data-copy]');
+      const copyStatus = document.querySelector('.copy-status');
+      if (copyButton && navigator.clipboard) {
+        copyButton.hidden = false;
+        copyButton.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(copyButton.dataset.copy);
+            copyStatus.textContent = 'Address copied.';
+          } catch {
+            copyStatus.textContent = 'Copy failed. Select the address above instead.';
+          }
+        });
+      }
 
       document.querySelectorAll('[data-tabs]').forEach((group) => {
         const tabs = [...group.querySelectorAll('[role="tab"]')];
