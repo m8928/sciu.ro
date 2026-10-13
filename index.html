@@ -210,6 +210,16 @@
     .deploy strong { color: var(--heading); font-weight: 500; }
     .deploy span { color: var(--muted); font-size: 15px; }
 
+    /* Assist */
+    .assist-band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px 48px; align-items: center; margin-top: 40px; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .assist-band .eyebrow { margin-bottom: 8px; }
+    .assist-band-text { color: var(--muted); font-size: 16px; }
+    .assist-band-text strong { color: var(--heading); font-weight: 500; }
+    .assist-band-example { padding: 14px 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--nav); font-size: 14px; }
+    .assist-band-example .q { display: block; color: var(--heading); }
+    .assist-band-example code { display: block; margin-top: 6px; color: var(--syn-command); font-size: 13px; overflow-wrap: anywhere; }
+    .assist-band-example code::before { content: "→ "; color: var(--muted); }
+
     /* Closing */
     .note {
       display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px;
@@ -253,6 +263,7 @@
       .preview-bar { flex-wrap: wrap; }
       .section { padding-top: 88px; }
       .flow, .facts { grid-template-columns: 1fr; gap: 28px; }
+      .assist-band { grid-template-columns: 1fr; }
       .tablist { gap: 12px; margin-bottom: 16px; }
       .tablist [role="tab"] { padding-top: 12px; }
       .tablist [role="tab"] strong { font-size: 15px; line-height: 1.35; }
@@ -310,6 +321,14 @@
             alt="Sciuro Search: an SPL query, a completed job with 17,842 matched events, an events-over-time chart, the field list and raw events" />
         </a>
       </figure>
+
+      <aside class="assist-band" aria-labelledby="assist-title">
+        <div>
+          <p class="eyebrow" id="assist-title">Built with Claude · in development</p>
+          <p class="assist-band-text"><strong>Ask in plain language.</strong> We are building Claude into Sciuro to draft the SPL-style search for your question, explain existing searches and summarize alerts when they fire.</p>
+        </div>
+        <p class="assist-band-example" aria-label="Example: a question and the search drafted from it"><span class="q">“Which IPs failed SSH login today?”</span><code>index=security "Failed password" | stats count by src_ip</code></p>
+      </aside>
     </section>
 
     <section class="section container" aria-labelledby="flow-title">
